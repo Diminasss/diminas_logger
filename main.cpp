@@ -4,15 +4,9 @@
 
 int main() {
     setlocale(LC_ALL, "Russian");
-    diminas_logger logger;
-    logger.say_hello();
-    auto lang = "C++";
-    std::cout << "Hello and welcome to " << lang << "!\n";
+    diminas_logger logger("/home/diminas/CLionProjects/diminas_logger/log.log", "INFO");
 
-    for (int i = 1; i <= 5; i++) {
-
-        std::cout << "i = " << i << std::endl;
-    }
-
+    logger.log("a");
+    logger.log("b");
     return 0;
 }

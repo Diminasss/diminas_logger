@@ -1,18 +1,28 @@
 #pragma once
 
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <unordered_map>
 
-#ifdef _WIN32
-#ifdef DIMINAS_LOGGER_EXPORTS
-#define DIMINAS_LOGGER_API __declspec(dllexport)
-#else
-#define DIMINAS_LOGGER_API __declspec(dllimport)
-#endif
-#else
-#define DIMINAS_LOGGER_API
-#endif
 
-class DIMINAS_LOGGER_API diminas_logger {
+class diminas_logger {
 public:
-    void say_hello();
+    // Constructor (set filename and logging level)
+    explicit diminas_logger(const std::string& log_filename, const std::string& log_level = "INFO");
+    ~diminas_logger();
+
+    // Logging
+    void log(const std::string& log_string);
+
+    // Set logging level (returns true if successful)
+    bool set_level(const std::string& new_log_level);
+    // Get current logging level
+    int get_level() const;
+
+private:
+    int log_level;
+    std::string log_filename;
+    std::ofstream log_file;
+    const std::unordered_map<std::string, int> available_levels = {{"INFO", 1}, {"WARN", 2}, {"ERROR", 3}};
 };
